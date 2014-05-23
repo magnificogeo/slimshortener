@@ -8,6 +8,12 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'Generate your own short URL!' });
 });
 
+/* GET route to match the url parameter string for redirection */
+
+router.get('/:url_param_string', function(req, res) {
+	//console.log(req.params.url_param_string);
+	var redir_url = UrlManager.db_find(req.params.url_param_string, res);
+});
 
 /* POST route to handle the input URL */
 router.post('/generateurl', function(req, res) {
@@ -30,7 +36,7 @@ router.post('/generateurl', function(req, res) {
 	var randomString = random_string({length: inputUrlLength});
 
  	
-	UrlManager.db_adapter(inputUrl, randomString, req.host); // saves the url into mongodb
+	UrlManager.db_save(inputUrl, randomString, req.host); // saves the url into mongodb
 
 	res.render('generateurl', { generated_url : 'http://' + req.host + '/' + randomString });
 
