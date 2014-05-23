@@ -1,5 +1,10 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+	h1 #{title}	
+	form#formGenUrl(name="generateUrl",method="post",action="/generateurl")
+		input#inputUrl(type="text", placeholder="input the url you wish to be shortened", name="inputUrl")
+		p
+		input#inputUrlLength(type="text", placeholder="input length of generated url - default 10", name="inputUrlLength")
+		p
+		button#btnSubmit(type="submit") DAS IT!
