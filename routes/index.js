@@ -30,11 +30,10 @@ router.post('/generateurl', function(req, res) {
 	var randomString = random_string({length: inputUrlLength});
 
  	
-	UrlManager.db_adapter(inputUrl, randomString);
+	UrlManager.db_adapter(inputUrl, randomString, req.host); // saves the url into mongodb
 
+	res.render('generateurl', { generated_url : 'http://' + req.host + '/' + randomString });
 
-
-	//res.render('generateurl', { title: 'Freshly generated URL!'});
 });
 
 module.exports = router;
